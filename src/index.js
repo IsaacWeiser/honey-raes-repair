@@ -1,12 +1,14 @@
+// this import 1st import allows us to use react library
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {Repairs} from './components/repair.js';
 import reportWebVitals from './reportWebVitals';
+//import { Repairs } from './components/repair';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Repairs />
   </React.StrictMode>,
   document.getElementById('root')
 );
