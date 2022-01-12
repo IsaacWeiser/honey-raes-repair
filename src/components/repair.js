@@ -1,19 +1,33 @@
-// this import 1st import allows us to use react library
-import React, { useEffect, useState } from "react"
-import { CustomerList } from "./customers/CustomerList.js"
-import { EmployeeList } from "./employees/employeeList.js"
-import { TicketList } from "./ticketList/ticketList.js"
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { ApplicationViews } from "./ApplicationViews";
+import { NavBar } from "./nav/NavBar";
+import { Login } from "./auth/Login";
+import { Register } from "./auth/Register";
+import "./repair.css";
 
+export const Repairs = () => (
+  <>
+    <Route
+      render={() => {
+        if (localStorage.getItem("honey_customer")) {
+          return (
+            <>
+              <NavBar />
+              <ApplicationViews />
+            </>
+          );
+        } else {
+          return <Redirect to="/login" />;
+        }
+      }}
+    />
 
-//react component (inside is jsx not js)
-//fisrt need return and ()
-export const Repairs = () => {
-     return (
-        <>
-        <h1>Honey Rae's Repair Shop</h1>
-        <CustomerList />
-        <EmployeeList />
-        <TicketList />
-        </>
-    )
-}
+    <Route path="/login">
+      <Login />
+    </Route>
+    <Route path="/register">
+      <Register />
+    </Route>
+  </>
+);

@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {Repairs} from './components/repair.js';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom"
 //import { Repairs } from './components/repair';
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
     <Repairs />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
