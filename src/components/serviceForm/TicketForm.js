@@ -1,10 +1,39 @@
 import React, { useState } from "react"
+import { useHistory } from "react-router-dom";
 
 export const TicketForm = () => {
-    const [ticket, update] = useState();
+    const [ticket, updateTicket] = useState({
+        description:"",
+        emergency:false
+    });
+
+    const history = useHistory();
 
     const saveTicket = (event) => {
         event.preventDefault()
+        const newTicket = {
+            description: ticket.description,
+            emergency: ticket.emergency,
+            customerId: parseInt(localStorage.getItem("honey_customer")),
+            employeeId: 1,
+            dateCompleted: ""
+        }
+
+        const fetchOption = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTicket)
+        }
+
+        return fetch("http://localhost:8088/serviceTickets", fetchOption)
+        .then(()=> {
+            console.log("here" + JSON.stringify(ticket))
+            return history.push("/tickets")
+        })
+
+
     }
 
     return (
@@ -18,14 +47,26 @@ export const TicketForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Brief description of problem"
-                        onChange={} />
+                        onChange={
+                            (event)=> {
+                                const copy = {...ticket}
+                                copy.description=event.target.value;
+                                updateTicket(copy);
+                            }
+                        } 
+                        />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="name">Emergency:</label>
                     <input type="checkbox"
-                        onChange={} />
+                        onChange={event=>{
+                            const copy = {...ticket}
+                            copy.emergency = event.target.checked
+                            updateTicket(copy)
+                        }} 
+                        />
                 </div>
             </fieldset>
             <button className="btn btn-primary" onClick={saveTicket}>
