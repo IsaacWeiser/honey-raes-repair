@@ -5,6 +5,8 @@ import { CustomerList } from "./customers/CustomerList.js"
 import { TicketList } from "./ticketList/ticketList.js"
 import { TicketForm } from "./serviceForm/TicketForm.js"
 import { NewEmployeeForm } from "./employees/newEmployeeForm.js"
+import { Ticket } from "./ticketList/ticket.js"
+import { Employee } from "./employees/employee.js"
 
 export const ApplicationViews = () => {
     return (
@@ -21,12 +23,20 @@ export const ApplicationViews = () => {
                 <TicketList />
             </Route>
 
+            <Route exact path="/tickets/:ticketId(\d+)">
+                <Ticket />
+            </Route>
+
             <Route path="/tickets/create">
                 <TicketForm />
             </Route>
 
             <Route path="/employees/create">
                 <NewEmployeeForm />
+            </Route>
+            
+            <Route path="/employees/:empId(\d+)">
+                <Employee />
             </Route>
         </>
     )
